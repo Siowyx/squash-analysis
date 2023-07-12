@@ -67,14 +67,6 @@ body {
   font-size: 0.875rem;
 }
 
-ul {
-  list-style-type: none;
-}
-
-a {
-  text-decoration: none;
-}
-
 h1,
 h2,
 h3,
@@ -170,22 +162,6 @@ main {
   box-shadow: var(--dark-shadow);
 }
 
-/* .container img {
-  width: 38vw;
-  height: 50vw;
-  margin: auto;
-  display: block;
-  position: absolute;
-} */
-/* 
-.container canvas {
-  background-image: url("squash-floor.png");
-  background-size: 100% 100%;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-} */
-
 .reset-btn {
   color: var(--clr-white);
   display: block;
@@ -209,10 +185,20 @@ main {
 }
 
 #canvas-img {
-  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
-.markers-container p {
+.click-surface {
   position: absolute;
-  /* z-index: -1; */
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.markers-container span {
+  position: absolute;
+  opacity: 0.6;
 }
