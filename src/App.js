@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SquashFloor from "./SquashFloor";
+// import SquashFloor from "./SquashFloor";
 import squashfloor from "./squash-floor.png";
 
 function App() {
