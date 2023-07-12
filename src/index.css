@@ -153,21 +153,18 @@ main {
   height: 565px;
   width: 400px;
   margin: 1rem 0;
-  /* min-width: 400px;
-  max-width: 35vw; */
-  /* min-height: 500px; */
   background: var(--clr-white);
   border-radius: var(--radius);
   padding: 1.5rem 2rem;
   box-shadow: var(--dark-shadow);
+  float: left;
 }
 
-.reset-btn {
+.btn {
   color: var(--clr-white);
   display: block;
   width: 100%;
   border-color: transparent;
-  background: var(--clr-red-dark);
   margin: 2rem auto 0 auto;
   text-transform: capitalize;
   font-size: 1.2rem;
@@ -176,6 +173,14 @@ main {
   border-radius: var(--radius);
   outline: 1px solid rgba(224, 141, 141, 0.8);
   cursor: pointer;
+}
+
+.undo {
+  background: var(--clr-red-light);
+}
+
+.reset {
+  background: var(--clr-red-dark);
 }
 
 #canvas-container {
@@ -201,4 +206,12 @@ main {
 .markers-container span {
   position: absolute;
   opacity: 0.6;
+}
+
+.info-container {
+  margin: 1rem 1rem;
+  background: var(--clr-white);
+  border-radius: var(--radius);
+  padding: 1.5rem 2rem;
+  box-shadow: var(--dark-shadow);
 }
