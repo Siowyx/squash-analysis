@@ -31,6 +31,30 @@ function App() {
   return (
     <main>
       <section className="container">
+        <div className="info-container">
+          <div className="count-container">
+            <h3 style={{ display: "inline" }}>{count}</h3>{" "}
+            <p style={{ display: "inline" }}>shots marked</p>
+          </div>
+          <div className="btn-container">
+            <button
+              className="undo btn"
+              onClick={() => {
+                setMarkers(markers.slice(0, -1));
+              }}
+            >
+              undo
+            </button>
+            <button
+              className="reset btn"
+              onClick={() => {
+                setMarkers([]);
+              }}
+            >
+              reset
+            </button>
+          </div>
+        </div>
         <div id="canvas-container">
           <img id="canvas-img" src={squashfloor} />
           <div className="click-surface" onClick={mark}></div>
@@ -50,26 +74,6 @@ function App() {
             })}
           </div>
         </div>
-      </section>
-      <section className="info-container">
-        <h3 style={{ display: "inline" }}>{count}</h3>{" "}
-        <p style={{ display: "inline" }}>shots marked</p>
-        <button
-          className="undo btn"
-          onClick={() => {
-            setMarkers(markers.slice(0, -1));
-          }}
-        >
-          undo
-        </button>
-        <button
-          className="reset btn"
-          onClick={() => {
-            setMarkers([]);
-          }}
-        >
-          reset
-        </button>
       </section>
     </main>
 
