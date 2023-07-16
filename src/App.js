@@ -14,7 +14,7 @@ function App() {
   const [markers, setMarkers] = useState(getLocalStorage());
   const [count, setCount] = useState(markers.length);
   const [isShowStats, setIsShowStats] = useState(false);
-  const [stats, setStats] = useState([]);
+  const [stats, setStats] = useState([0, 0, 0, 0, 0, 0]);
 
   useEffect(() => {
     localStorage.setItem("markers", JSON.stringify(markers));
@@ -29,7 +29,7 @@ function App() {
   };
 
   const toggleStats = () => {
-    if (!isShowStats) {
+    if (!isShowStats && markers.length > 0) {
       const top_left = markers.filter((marker) => {
         return marker[0] <= 167.5 && marker[1] <= 221;
       });
