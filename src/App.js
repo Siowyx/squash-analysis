@@ -13,7 +13,8 @@ const getLocalStorage = () => {
 function App() {
   const [markers, setMarkers] = useState(getLocalStorage());
   const [count, setCount] = useState(markers.length);
-  // const [imgDim, setImgDim] = useState([])
+  const [isShowStats, setIsShowStats] = useState(false);
+  const [stats, setStats] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("markers", JSON.stringify(markers));
@@ -21,11 +22,43 @@ function App() {
   }, [markers]);
 
   const mark = (e) => {
-    // console.log(e);
     const offX = e.target.offsetParent.offsetLeft;
     const offY = e.target.offsetParent.offsetTop;
     setMarkers([...markers, [e.pageX - offX, e.pageY - offY]]);
     setCount(count + 1);
+  };
+
+  const toggleStats = () => {
+    if (!isShowStats) {
+      const top_left = markers.filter((marker) => {
+        return marker[0] <= 167.5 && marker[1] <= 221;
+      });
+      const mid_left = markers.filter((marker) => {
+        return marker[0] <= 167.5 && marker[1] > 221 && marker[1] <= 393;
+      });
+      const bot_left = markers.filter((marker) => {
+        return marker[0] <= 167.5 && marker[1] > 393;
+      });
+      const top_right = markers.filter((marker) => {
+        return marker[0] > 167.5 && marker[1] <= 221;
+      });
+      const mid_right = markers.filter((marker) => {
+        return marker[0] > 167.5 && marker[1] > 221 && marker[1] <= 393;
+      });
+      const bot_right = markers.filter((marker) => {
+        return marker[0] > 167.5 && marker[1] > 393;
+      });
+
+      setStats([
+        Math.round((top_left.length / count) * 1000) / 10,
+        Math.round((mid_left.length / count) * 1000) / 10,
+        Math.round((bot_left.length / count) * 1000) / 10,
+        Math.round((top_right.length / count) * 1000) / 10,
+        Math.round((mid_right.length / count) * 1000) / 10,
+        Math.round((bot_right.length / count) * 1000) / 10,
+      ]);
+    }
+    setIsShowStats(!isShowStats);
   };
 
   return (
@@ -38,7 +71,14 @@ function App() {
           </div>
           <div className="btn-container">
             <button
-              className="undo btn"
+              className={`${isShowStats ? "stats-on" : "stats-off"} btn`}
+              onClick={toggleStats}
+            >
+              {isShowStats ? "resume marking" : "view stats"}
+            </button>
+            <button
+              className={`undo btn ${isShowStats ? "disabled-btn" : ""}`}
+              style={isShowStats ? { display: "none" } : {}}
               onClick={() => {
                 setMarkers(markers.slice(0, -1));
               }}
@@ -47,6 +87,7 @@ function App() {
             </button>
             <button
               className="reset btn"
+              style={isShowStats ? { display: "none" } : {}}
               onClick={() => {
                 setMarkers([]);
               }}
@@ -57,7 +98,11 @@ function App() {
         </div>
         <div id="canvas-container">
           <img id="canvas-img" src={squashfloor} />
-          <div className="click-surface" onClick={mark}></div>
+          <div
+            className="click-surface"
+            style={{ zIndex: isShowStats ? "-1" : "1" }}
+            onClick={mark}
+          ></div>
           <div className="markers-container">
             {markers.map((marker, index) => {
               return (
@@ -72,12 +117,50 @@ function App() {
                 </span>
               );
             })}
+            {isShowStats && (
+              <div className="stats-container">
+                <div
+                  className="stats-top-left"
+                  style={{ background: `rgba(3, 138, 255, ${stats[0] / 100})` }}
+                >
+                  <h3 className="stats">{stats[0].toFixed(1)}%</h3>
+                </div>
+                <div
+                  className="stats-mid-left"
+                  style={{ background: `rgba(3, 138, 255, ${stats[1] / 100})` }}
+                >
+                  <h3 className="stats">{stats[1].toFixed(1)}%</h3>
+                </div>
+                <div
+                  className="stats-bot-left"
+                  style={{ background: `rgba(3, 138, 255, ${stats[2] / 100})` }}
+                >
+                  <h3 className="stats">{stats[2].toFixed(1)}%</h3>
+                </div>
+                <div
+                  className="stats-top-right"
+                  style={{ background: `rgba(3, 138, 255, ${stats[3] / 100})` }}
+                >
+                  <h3 className="stats">{stats[3].toFixed(1)}%</h3>
+                </div>
+                <div
+                  className="stats-mid-right"
+                  style={{ background: `rgba(3, 138, 255, ${stats[4] / 100})` }}
+                >
+                  <h3 className="stats">{stats[4].toFixed(1)}%</h3>
+                </div>
+                <div
+                  className="stats-bot-right"
+                  style={{ background: `rgba(3, 138, 255, ${stats[5] / 100})` }}
+                >
+                  <h3 className="stats">{stats[5].toFixed(1)}%</h3>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
     </main>
-
-    // <SquashFloor />
   );
 }
 

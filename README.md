@@ -2,4 +2,4 @@
 
 link https://squash-analysis.vercel.app/
 
-Study squash match/rallies by marking where the each shot bounces on the floor.
+Study squash match/rallies by marking where each shot bounces on the floor.
