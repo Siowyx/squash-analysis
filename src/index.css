@@ -278,9 +278,36 @@ main {
 }
 
 .stats {
+  background-color: #ffffff6e;
+  border-radius: 20%;
+  width: 80%;
+  padding: 10%;
+  margin: auto;
+  font-size: 1.25rem;
+}
+
+.stats-top-bg {
   text-align: center;
   margin: auto;
-  padding: 50% 0;
+  padding: 50% 20%;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.stats-mid-bg {
+  text-align: center;
+  margin: auto;
+  padding: 40% 20% 30%;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.stats-bot-bg {
+  text-align: center;
+  margin: auto;
+  padding: 30% 20% 50%;
   position: absolute;
   height: 100%;
   width: 100%;

@@ -123,37 +123,49 @@ function App() {
                   className="stats-top-left"
                   style={{ background: `rgba(3, 138, 255, ${stats[0] / 100})` }}
                 >
-                  <h3 className="stats">{stats[0].toFixed(1)}%</h3>
+                  <div className="stats-top-bg">
+                    <h4 className="stats">{stats[0].toFixed(1)}%</h4>
+                  </div>
                 </div>
                 <div
                   className="stats-mid-left"
                   style={{ background: `rgba(3, 138, 255, ${stats[1] / 100})` }}
                 >
-                  <h3 className="stats">{stats[1].toFixed(1)}%</h3>
+                  <div className="stats-mid-bg">
+                    <h4 className="stats">{stats[1].toFixed(1)}%</h4>
+                  </div>
                 </div>
                 <div
                   className="stats-bot-left"
                   style={{ background: `rgba(3, 138, 255, ${stats[2] / 100})` }}
                 >
-                  <h3 className="stats">{stats[2].toFixed(1)}%</h3>
+                  <div className="stats-bot-bg">
+                    <h4 className="stats">{stats[2].toFixed(1)}%</h4>
+                  </div>
                 </div>
                 <div
                   className="stats-top-right"
                   style={{ background: `rgba(3, 138, 255, ${stats[3] / 100})` }}
                 >
-                  <h3 className="stats">{stats[3].toFixed(1)}%</h3>
+                  <div className="stats-top-bg">
+                    <h4 className="stats">{stats[3].toFixed(1)}%</h4>
+                  </div>
                 </div>
                 <div
                   className="stats-mid-right"
                   style={{ background: `rgba(3, 138, 255, ${stats[4] / 100})` }}
                 >
-                  <h3 className="stats">{stats[4].toFixed(1)}%</h3>
+                  <div className="stats-mid-bg">
+                    <h4 className="stats">{stats[4].toFixed(1)}%</h4>
+                  </div>
                 </div>
                 <div
                   className="stats-bot-right"
                   style={{ background: `rgba(3, 138, 255, ${stats[5] / 100})` }}
                 >
-                  <h3 className="stats">{stats[5].toFixed(1)}%</h3>
+                  <div className="stats-bot-bg">
+                    <h4 className="stats">{stats[5].toFixed(1)}%</h4>
+                  </div>
                 </div>
               </div>
             )}
