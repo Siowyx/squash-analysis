@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/userContext";
+import validator from "validator";
 
 const ForgotPassword = () => {
   const { sendResetPasswordEmail } = useContext(UserContext);
@@ -13,6 +14,7 @@ const ForgotPassword = () => {
   const onFormInputChange = (event) => {
     const { name, value } = event.target;
     setForm({ ...form, [name]: value });
+    setIsValidEmail(validator.isEmail(form.email));
   };
 
   const onSubmit = async (event) => {
@@ -45,7 +47,7 @@ const ForgotPassword = () => {
       <div className="form-floating mb-3">
         <input
           type="email"
-          className="form-control"
+          className={`form-control ${!isValidEmail && "invalid-input"} `}
           id="email"
           placeholder="name@example.com"
           name="email"
@@ -57,7 +59,7 @@ const ForgotPassword = () => {
 
       <button
         type="button"
-        className="btn btn-primary mb-4"
+        className={`btn btn-primary mb-4 ${!isValidEmail && "disabled"}`}
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
         onClick={onSubmit}
