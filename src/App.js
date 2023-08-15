@@ -8,31 +8,35 @@ import EmailConfirmation from "./components/EmailConfirmation";
 import ConfirmedEmail from "./components/ConfirmedEmail";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
-import PrivateRoute from "./components/PrivateRoute";
-import Home from "./components/Home";
-// import SquashFloor from "./components/SquashFloor";
 import Error from "./components/Error";
+import PrivateRoute from "./components/PrivateRoute";
+import PrivateTemplate from "./components/PrivateTemplate";
+import Home from "./components/Home";
+import Analysis from "./components/Analysis";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
     <div style={{ height: "100%" }}>
-      <Template>
-        <Routes>
+      <Routes>
+        <Route element={<Template />}>
           <Route path="/" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />{" "}
+          <Route path="/signup" element={<Signup />} />
           <Route path="/emailConfirmation" element={<EmailConfirmation />} />
           <Route path="/confirmedEmail" element={<ConfirmedEmail />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
-          <Route element={<PrivateRoute />}>
-            <Route path="/home" element={<Home />} />
-          </Route>
           <Route path="*" element={<Error />} />
-        </Routes>
-      </Template>
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route element={<PrivateTemplate />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/analysis" element={<Analysis />} />
+          </Route>
+        </Route>
+      </Routes>
     </div>
   );
 }

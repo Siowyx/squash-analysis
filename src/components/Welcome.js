@@ -1,6 +1,33 @@
-import React from "react";
+import { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/userContext";
 
 const Welcome = () => {
+  const navigate = useNavigate();
+  const { user, fetchUser } = useContext(UserContext);
+
+  const loadUser = async () => {
+    if (!user) {
+      try {
+        const fetchedUser = await fetchUser();
+        if (!fetchedUser) {
+          // user is not already logged in, so dont redirect
+          return;
+        }
+      } catch (error) {
+        alert(error);
+      }
+    }
+    navigate("/home");
+  };
+
+  // This useEffect will run only once when the component is mounted.
+  // Hence this is helping us in verifying whether the user is already logged in
+  // or not.
+  useEffect(() => {
+    loadUser(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div
       className="d-flex justify-content-center align-items-center"

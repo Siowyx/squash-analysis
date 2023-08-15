@@ -91,6 +91,26 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  // // Since there can be chances that the user is already logged in
+  // // but whenever the app gets refreshed the user context will become
+  // // empty. So we are checking if the user is already logged in and
+  // // if so we are redirecting the user to the home page.
+  // // Otherwise we will do nothing and let the user to login.
+  // const checkUser = async () => {
+  //   if (!user) {
+  //     try {
+  //       const fetchedUser = await fetchUser();
+  //       if (fetchedUser) {
+  //         // user is already logged in
+  //         return true;
+  //       }
+  //     } catch (error) {
+  //       alert(error);
+  //     }
+  //   }
+  //   return false;
+  // };
+
   // Function to logout user from our Realm
   const logOutUser = async () => {
     if (!app.currentUser) return false;
@@ -110,6 +130,7 @@ export const UserProvider = ({ children }) => {
         user,
         setUser,
         fetchUser,
+        // checkUser,
         emailPasswordLogin,
         emailPasswordSignup,
         resendConfirmation,

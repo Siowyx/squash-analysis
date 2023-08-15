@@ -1,3 +1,15 @@
+/* constants */
+:root {
+  --markers-offset-top: 3px;
+  --markers-offset-left: 3.5px;
+  --stats-top-height: 216px;
+  --stats-mid-height: 171px;
+  --stats-bot-height: 141px;
+  --stats-width: calc(330px / 2);
+  --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  --radius: 0.25rem;
+}
+
 .custom-a {
   color: #16b7e4;
   text-decoration: none;
@@ -15,4 +27,160 @@
 
 .invalid-input:focus {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6) !important;
+}
+
+/* squash floor */
+.squashfloor-div {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.squashfloor-container {
+  height: 660px;
+  width: 400px;
+  min-height: 660px;
+  min-width: 400px;
+  margin: 1rem 0;
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--dark-shadow);
+}
+
+.count-container {
+  text-align: center;
+}
+
+.btn-container {
+  display: flex;
+}
+
+.custom-btn {
+  display: block;
+  width: 30%;
+  border-color: transparent;
+  margin: 0.5rem auto 0.5rem auto;
+  text-transform: capitalize;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  outline: 1px solid;
+  cursor: pointer;
+}
+
+#canvas-container {
+  position: relative;
+  width: 100%;
+  height: 85%;
+}
+
+#canvas-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.click-surface {
+  position: absolute;
+  top: var(--markers-offset-top);
+  left: var(--markers-offset-left);
+  width: 98.5%;
+  height: 99%;
+  z-index: 1;
+  opacity: 0;
+}
+
+.markers-container span {
+  position: absolute;
+  opacity: 0.6;
+}
+
+.stats-top-left {
+  position: absolute;
+  top: var(--markers-offset-top);
+  left: var(--markers-offset-left);
+  width: var(--stats-width);
+  height: var(--stats-top-height);
+}
+
+.stats-mid-left {
+  position: absolute;
+  top: calc(var(--markers-offset-top) + var(--stats-top-height));
+  left: var(--markers-offset-left);
+  width: var(--stats-width);
+  height: var(--stats-mid-height);
+}
+
+.stats-bot-left {
+  position: absolute;
+  top: calc(
+    var(--markers-offset-top) + var(--stats-top-height) +
+      var(--stats-mid-height)
+  );
+  left: var(--markers-offset-left);
+  width: var(--stats-width);
+  height: var(--stats-bot-height);
+}
+
+.stats-top-right {
+  position: absolute;
+  top: var(--markers-offset-top);
+  left: calc(var(--markers-offset-left) + var(--stats-width));
+  width: var(--stats-width);
+  height: var(--stats-top-height);
+}
+
+.stats-mid-right {
+  position: absolute;
+  top: calc(var(--markers-offset-top) + var(--stats-top-height));
+  left: calc(var(--markers-offset-left) + var(--stats-width));
+  width: var(--stats-width);
+  height: var(--stats-mid-height);
+}
+
+.stats-bot-right {
+  position: absolute;
+  top: calc(
+    var(--markers-offset-top) + var(--stats-top-height) +
+      var(--stats-mid-height)
+  );
+  left: calc(var(--markers-offset-left) + var(--stats-width));
+  width: var(--stats-width);
+  height: var(--stats-bot-height);
+}
+
+.stats {
+  background-color: #ffffff6e;
+  border-radius: 20%;
+  width: 80%;
+  padding: 10%;
+  margin: auto;
+  font-size: 1.25rem;
+}
+
+.stats-top-bg {
+  text-align: center;
+  margin: auto;
+  padding: 50% 20%;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.stats-mid-bg {
+  text-align: center;
+  margin: auto;
+  padding: 40% 20% 30%;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.stats-bot-bg {
+  text-align: center;
+  margin: auto;
+  padding: 30% 20% 50%;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }

@@ -34,7 +34,7 @@ const Login = () => {
   // appropriate page once the authentication is done.
   const redirectNow = () => {
     const redirectTo = location.search.replace("?redirectTo=", "");
-    navigate(redirectTo ? redirectTo : "/");
+    navigate(redirectTo ? redirectTo : "/home");
   };
 
   // Since there can be chances that the user is already logged in
@@ -46,14 +46,15 @@ const Login = () => {
     if (!user) {
       try {
         const fetchedUser = await fetchUser();
-        if (fetchedUser) {
-          // Redirecting them once fetched.
-          redirectNow();
+        if (!fetchedUser) {
+          // user is not already logged in, so dont redirect
+          return;
         }
       } catch (error) {
         alert(error);
       }
     }
+    redirectNow();
   };
 
   // This useEffect will run only once when the component is mounted.

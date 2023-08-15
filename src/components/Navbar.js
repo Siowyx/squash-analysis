@@ -1,10 +1,31 @@
-import React from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../contexts/userContext";
 import squashball from "../img/squash-ball.png";
 
-const Navbar = () => {
+const Navbar = ({ isDark }) => {
+  const { user, fetchUser, logOutUser } = useContext(UserContext);
+
+  // to check is user is logged in
+  useEffect(() => {
+    const checkUser = async () => {
+      if (!user) {
+        try {
+          const fetchedUser = await fetchUser();
+        } catch (error) {
+          alert(error);
+        }
+      }
+    };
+    checkUser();
+  }, []);
+
   return (
-    <nav className="navbar navbar-dark sticky-top navbar-expand-lg bg-transparent">
+    <nav
+      className={`navbar ${
+        isDark ? "navbar-dark" : "navbar-light"
+      } sticky-top navbar-expand-lg bg-transparent`}
+    >
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
           <img
@@ -35,9 +56,15 @@ const Navbar = () => {
                 </a>
               </li> */}
             <li className="nav-item">
-              <Link to={"/login"} className="nav-link">
-                Login
-              </Link>
+              {user ? (
+                <Link className="nav-link" onClick={logOutUser} to={"/"}>
+                  Logout
+                </Link>
+              ) : (
+                <Link to={"/login"} className="nav-link">
+                  Login
+                </Link>
+              )}
             </li>
           </ul>
           <span className="navbar-text ms-auto">

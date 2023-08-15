@@ -1,8 +1,9 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import squashcourt from "../img/squash-court.png";
 
-const Template = ({ children }) => {
+const Template = () => {
   return (
     <div
       className="text-center bg-image"
@@ -22,9 +23,9 @@ const Template = ({ children }) => {
           position: "absolute",
         }}
       >
-        <Navbar></Navbar>
+        <Navbar isDark={true}></Navbar>
       </div>
-      {children}
+      <Outlet />
     </div>
   );
 };
