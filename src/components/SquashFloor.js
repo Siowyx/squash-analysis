@@ -85,7 +85,7 @@ const SquashFloor = () => {
 
   const mark = (e) => {
     // reserve feature for paid user
-    if (markers.length == 20 && !isSubscribed) {
+    if (markers.length === 20 && !isSubscribed) {
       let modal = Modal.getOrCreateInstance(
         document.getElementById("staticBackdrop")
       );
@@ -317,7 +317,8 @@ const SquashFloor = () => {
                         <button
                           type="button"
                           className={`btn custom-btn btn-outline-success ${
-                            (form.tag == "" || form.remarks == "") && "disabled"
+                            (form.tag === "" || form.remarks === "") &&
+                            "disabled"
                           }`}
                           data-bs-dismiss="modal"
                           onClick={save}
@@ -341,7 +342,7 @@ const SquashFloor = () => {
             </div>
           </div>
           <div id="canvas-container">
-            <img id="canvas-img" src={squashfloor} />
+            <img id="canvas-img" alt="squashfloor" src={squashfloor} />
             <div
               className="click-surface"
               style={{ zIndex: isShowStats ? "-1" : "1" }}

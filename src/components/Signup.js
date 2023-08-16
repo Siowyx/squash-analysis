@@ -1,13 +1,12 @@
 // https://medium.com/@sourabhbagrecha/implement-email-password-authentication-in-react-using-mongodb-realm-a6dc9123802b
 
 import { useContext, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/userContext";
 import validator from "validator";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   // We are consuming our user-management context to
   // get & set the user details here

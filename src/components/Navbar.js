@@ -11,14 +11,14 @@ const Navbar = ({ isDark }) => {
     const checkUser = async () => {
       if (!user) {
         try {
-          const fetchedUser = await fetchUser();
+          await fetchUser();
         } catch (error) {
           alert(error);
         }
       }
     };
     checkUser();
-  }, []);
+  }, [user, fetchUser]);
 
   return (
     <nav

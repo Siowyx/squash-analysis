@@ -6,7 +6,7 @@ const ConfirmedEmail = () => {
   const { confirmEmail } = useContext(UserContext);
 
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _] = useSearchParams();
 
   const asyncConfirmEmail = async (token, tokenId) => {
     try {
@@ -28,7 +28,7 @@ const ConfirmedEmail = () => {
     let token = searchParams.get("token");
     let tokenId = searchParams.get("tokenId");
     asyncConfirmEmail(token, tokenId);
-  }, []);
+  }, [searchParams, asyncConfirmEmail]);
 
   return (
     <div className="text-white text-center">
