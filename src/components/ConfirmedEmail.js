@@ -6,7 +6,7 @@ const ConfirmedEmail = () => {
   const { confirmEmail } = useContext(UserContext);
 
   const navigate = useNavigate();
-  const [searchParams, _] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const asyncConfirmEmail = async (token, tokenId) => {
     try {

@@ -7,7 +7,7 @@ const ResetPassword = () => {
 
   const { resetPassword } = useContext(UserContext);
 
-  const [searchParams, _] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [token, setToken] = useState("");
   const [tokenId, setTokenId] = useState("");
   const [isValidToken, setIsValidToken] = useState(true);
