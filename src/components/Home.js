@@ -8,6 +8,8 @@ const Home = () => {
   const { user } = useContext(UserContext);
 
   const [analyses, setAnalyses] = useState([]);
+  const [currPage, setCurrPage] = useState(0);
+  const [paginationArr, setPaginationArr] = useState([1]);
   const [searchParam, setSearchParam] = useState("");
   const [currDeletingId, setCurrDeletingId] = useState("");
 
@@ -20,26 +22,25 @@ const Home = () => {
     setSearchParam(searchParam);
   };
 
-  const retrieveAnalyses = () => {
-    AnalysisDataService.getAnalyses(user.id)
+  const retrieveAnalyses = (currPage = 0) => {
+    AnalysisDataService.getAnalyses(user.id, searchParam, currPage)
       .then((response) => {
         setAnalyses(response.data.analyses);
-      })
-      .catch((e) => {
-        console.log(user.id);
-        alert(e);
-      });
-  };
-
-  const search = () => {
-    if (!searchParam) {
-      retrieveAnalyses();
-      return;
-    }
-
-    AnalysisDataService.getAnalyses(user.id, searchParam)
-      .then((response) => {
-        setAnalyses(response.data.analyses);
+        setCurrPage(parseInt(response.data.page));
+        setPaginationArr(
+          Array.from(
+            {
+              length: Math.ceil(parseInt(response.data.total_results) / 10),
+            },
+            (x, i) =>
+              (i === 0 ||
+                (i >= parseInt(response.data.page) - 2 &&
+                  i <= parseInt(response.data.page) + 2) ||
+                i ===
+                  Math.ceil(parseInt(response.data.total_results) / 10 - 1)) &&
+              i + 1
+          )
+        );
       })
       .catch((e) => {
         alert(e);
@@ -48,14 +49,14 @@ const Home = () => {
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      search();
+      retrieveAnalyses();
     }
   };
 
   const deleteAnalysis = () => {
     AnalysisDataService.deleteAnalysis(user.id, currDeletingId)
       .then((response) => {
-        search();
+        retrieveAnalyses();
       })
       .catch((e) => {
         alert(e);
@@ -103,7 +104,7 @@ const Home = () => {
             className="btn btn-outline-primary"
             type="button"
             id="search"
-            onClick={search}
+            onClick={retrieveAnalyses}
           >
             &#128269;
           </button>
@@ -251,6 +252,65 @@ const Home = () => {
             )}
           </tbody>
         </table>
+        <div className=" d-flex justify-content-center">
+          <nav aria-label="Page navigation example">
+            <ul className="pagination">
+              <li className="page-item">
+                <button
+                  className={`page-link ${!currPage && "disabled"}`}
+                  aria-label="Previous"
+                  onClick={() => {
+                    retrieveAnalyses(currPage - 1);
+                  }}
+                >
+                  <span aria-hidden="true">&laquo;</span>
+                </button>
+              </li>
+
+              {paginationArr.map((pageNum, index, arr) => {
+                let isPrevEllipsis = index > 0 && !arr[index - 1];
+                return pageNum ? (
+                  <li
+                    key={index}
+                    className={`page-item ${
+                      pageNum === currPage + 1 && "active"
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      page={pageNum - 1}
+                      onClick={(e) => {
+                        pageNum !== currPage + 1 &&
+                          retrieveAnalyses(e.target.getAttribute("page"));
+                      }}
+                    >
+                      {pageNum}
+                    </button>
+                  </li>
+                ) : (
+                  !isPrevEllipsis && (
+                    <li key={index} className="page-item disabled">
+                      <button className="page-link">...</button>
+                    </li>
+                  )
+                );
+              })}
+              <li className="page-item">
+                <button
+                  className={`page-link ${
+                    currPage + 1 === paginationArr.slice(-1)[0] && "disabled"
+                  }`}
+                  aria-label="Next"
+                  onClick={() => {
+                    retrieveAnalyses(currPage + 1);
+                  }}
+                >
+                  <span aria-hidden="true">&raquo;</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
         <br />
       </div>
     </>
