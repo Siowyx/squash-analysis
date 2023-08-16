@@ -27,4 +27,6 @@ class AnalysisDataService {
   }
 }
 
-export default new AnalysisDataService();
+const analysisDataService = new AnalysisDataService();
+
+export default analysisDataService;

@@ -13,15 +13,6 @@ const Home = () => {
   const [searchParam, setSearchParam] = useState("");
   const [currDeletingId, setCurrDeletingId] = useState("");
 
-  useEffect(() => {
-    retrieveAnalyses();
-  }, []);
-
-  const onInputChange = (e) => {
-    const searchParam = e.target.value;
-    setSearchParam(searchParam);
-  };
-
   const retrieveAnalyses = (currPage = 0) => {
     AnalysisDataService.getAnalyses(user.id, searchParam, currPage)
       .then((response) => {
@@ -45,6 +36,15 @@ const Home = () => {
       .catch((e) => {
         alert(e);
       });
+  };
+
+  useEffect(() => {
+    retrieveAnalyses();
+  }, []);
+
+  const onInputChange = (e) => {
+    const searchParam = e.target.value;
+    setSearchParam(searchParam);
   };
 
   const handleKeyDown = (event) => {
@@ -121,7 +121,7 @@ const Home = () => {
             </tr>
           </thead>
           <tbody className="table-group-divider">
-            {analyses.length == 0 ? (
+            {analyses.length === 0 ? (
               <tr>
                 <td colSpan={"5"}>No analysis found...</td>
               </tr>
