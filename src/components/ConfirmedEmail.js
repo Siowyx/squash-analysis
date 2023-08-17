@@ -1,34 +1,38 @@
-import { useEffect, useContext } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useEffect, useContext, useCallback } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from "../contexts/userContext";
 
 const ConfirmedEmail = () => {
   const { confirmEmail } = useContext(UserContext);
 
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
 
-  const asyncConfirmEmail = async (token, tokenId) => {
-    try {
-      await confirmEmail(token, tokenId);
-    } catch (error) {
-      switch (error.statusCode) {
-        case 404:
-          navigate("/error");
-          break;
+  const asyncConfirmEmail = useCallback(
+    async (token, tokenId) => {
+      try {
+        await confirmEmail(token, tokenId);
+      } catch (error) {
+        switch (error.statusCode) {
+          case 404:
+            navigate("/error");
+            break;
 
-        default:
-          alert(error);
-          break;
+          default:
+            alert(error);
+            break;
+        }
       }
-    }
-  };
+    },
+    [confirmEmail, navigate]
+  );
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
     let token = searchParams.get("token");
     let tokenId = searchParams.get("tokenId");
     asyncConfirmEmail(token, tokenId);
-  }, [searchParams, asyncConfirmEmail]);
+  }, [asyncConfirmEmail]);
 
   return (
     <div className="text-white text-center">

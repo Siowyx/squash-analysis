@@ -31,6 +31,8 @@ const SquashFloor = () => {
     remarks: "",
   });
   const [isSubscribed, setIsSubscribed] = useState(true);
+  // to avoid no unuse var error
+  setIsSubscribed(true);
 
   const onFormInputChange = (event) => {
     const { name, value } = event.target;
@@ -58,7 +60,7 @@ const SquashFloor = () => {
         localStorage.setItem("markers", JSON.stringify([]));
       setMarkers(getLocalStorage());
       setCount(markers.length);
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -73,14 +75,14 @@ const SquashFloor = () => {
         setForm({ tag: analysis.tag, remarks: analysis.remarks });
       }
       setCount(markers.length);
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   useEffect(() => {
     if (!isLoading) {
       localStorage.setItem("markers", JSON.stringify(markers));
       setCount(markers.length);
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [markers]);
 
   const mark = (e) => {

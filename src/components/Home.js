@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import AnalysisDataService from "../services/analysis";
 import { UserContext } from "../contexts/userContext";
@@ -13,34 +13,39 @@ const Home = () => {
   const [searchParam, setSearchParam] = useState("");
   const [currDeletingId, setCurrDeletingId] = useState("");
 
-  const retrieveAnalyses = (currPage = 0) => {
-    AnalysisDataService.getAnalyses(user.id, searchParam, currPage)
-      .then((response) => {
-        setAnalyses(response.data.analyses);
-        setCurrPage(parseInt(response.data.page));
-        setPaginationArr(
-          Array.from(
-            {
-              length: Math.ceil(parseInt(response.data.total_results) / 10),
-            },
-            (x, i) =>
-              (i === 0 ||
-                (i >= parseInt(response.data.page) - 2 &&
-                  i <= parseInt(response.data.page) + 2) ||
-                i ===
-                  Math.ceil(parseInt(response.data.total_results) / 10 - 1)) &&
-              i + 1
-          )
-        );
-      })
-      .catch((e) => {
-        alert(e);
-      });
-  };
+  const retrieveAnalyses = useCallback(
+    (currPage = 0) => {
+      AnalysisDataService.getAnalyses(user.id, searchParam, currPage)
+        .then((response) => {
+          setAnalyses(response.data.analyses);
+          setCurrPage(parseInt(response.data.page));
+          setPaginationArr(
+            Array.from(
+              {
+                length: Math.ceil(parseInt(response.data.total_results) / 10),
+              },
+              (x, i) =>
+                (i === 0 ||
+                  (i >= parseInt(response.data.page) - 2 &&
+                    i <= parseInt(response.data.page) + 2) ||
+                  i ===
+                    Math.ceil(
+                      parseInt(response.data.total_results) / 10 - 1
+                    )) &&
+                i + 1
+            )
+          );
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+    [user.id, searchParam]
+  );
 
   useEffect(() => {
     retrieveAnalyses();
-  }, []);
+  }, [retrieveAnalyses]);
 
   const onInputChange = (e) => {
     const searchParam = e.target.value;

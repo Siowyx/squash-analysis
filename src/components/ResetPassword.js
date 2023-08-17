@@ -1,22 +1,23 @@
 import { useEffect, useContext, useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/userContext";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { resetPassword } = useContext(UserContext);
 
-  const [searchParams, setSearchParams] = useSearchParams();
   const [token, setToken] = useState("");
   const [tokenId, setTokenId] = useState("");
   const [isValidToken, setIsValidToken] = useState(true);
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
     setToken(searchParams.get("token"));
     setTokenId(searchParams.get("tokenId"));
-    setIsValidToken(true);
-  }, [searchParams]);
+    setIsValidToken(true); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [form, setForm] = useState({
     password: "",

@@ -126,7 +126,7 @@ const Login = () => {
           aria-describedby="invalidUserPassMsg"
         />
         <label htmlFor="password">Password</label>
-        {errorCode == 401 && (
+        {errorCode === 401 && (
           <small id="invalidUserPassMsg" style={{ color: "#FF0000" }}>
             Invalid username/password or email verification required!{" "}
           </small>
