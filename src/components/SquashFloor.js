@@ -30,9 +30,8 @@ const SquashFloor = () => {
     tag: "",
     remarks: "",
   });
+  // eslint-disable-next-line no-unused-vars
   const [isSubscribed, setIsSubscribed] = useState(true);
-  // to avoid no unuse var error
-  setIsSubscribed(true);
 
   const onFormInputChange = (event) => {
     const { name, value } = event.target;
