@@ -32,7 +32,7 @@ const ConfirmedEmail = () => {
     let token = searchParams.get("token");
     let tokenId = searchParams.get("tokenId");
     asyncConfirmEmail(token, tokenId);
-  }, [asyncConfirmEmail]);
+  }, [asyncConfirmEmail, location.search]);
 
   return (
     <div className="text-white text-center">
